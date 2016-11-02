@@ -64,11 +64,26 @@ class SepPage{
     var $conn;
     var $sqlstr;
     function ShowData($sqlstr, $conn, $pagesize, $nowpage){
-    
+        if(!isset($nowpage) || $nowpage==""){
+            $this->nowpage=1;
+        }else{
+            $this->nowpage=$nowpage;
+        } 
+        $this->pagesize=$pagesize;
+        $this->conn=$conn;
+        $this->sqlstr=$sqlstr;
+        $this->rs=$this->conn->PageExecute($this->sqlstr, $this->pagesize, $this->nowpage);
+        @this->array=$this->rs->GetRows();
+        if(count($this->array)==0 || $this->rs==false)
+            return false;
+        else
+            return $this->array;
     }
 
     function ShowPage($contentname, $utits, $anothersearchstr, $anothersearchstrs, $class){
-    
+        $allrs=$this->conn->Execute($this->sqlstr); 
+        $record=count($allrs->GetRows());
+        $pagecount=ceil($record/$this->pagesize);
     }
 }
 ?>
