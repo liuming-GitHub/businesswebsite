@@ -1,5 +1,5 @@
 <?php
-    require("smarty/Smarty.class.php");                     // 调用smarty配置类文件
+    require("./smarty/Smarty.class.php");                     // 调用smarty配置类文件
     class SmartyProject extends Smarty{                     // 定义类，继承smarty父类
         function SmartyProject(){                           // 定义方法，配置smarty模板
             $this->template_dir = "./";                     // 指定模板文件存储在根目录下
