@@ -84,6 +84,31 @@ class SepPage{
         $allrs=$this->conn->Execute($this->sqlstr); 
         $record=count($allrs->GetRows());
         $pagecount=ceil($record/$this->pagesize);
+        $str.=$contentname."&nbsp;".$record."&nbsp;".$utits."&nbsp; 每页 &nbsp;".$this->pagesize."&nbsp;".$utits."&nbsp;第&nbsp;".this->rs->AbsolutePage()."&nbsp;页/共&nbsp;".$pagecount."&nbsp;页";
+        $str.="&nbsp;&nbsp;&nbsp;&nbsp;";
+        if($this->rs->AtFirstPage())
+            $str.="<a href=".$_SERVER['PHP_SELF']."?page=1&parameter1=".$anothersearchstr."&parameter2=".$anothersearchstr." class=".$class.">首页</a>";
+        else
+            $str.="<font color='#555555'>首页</font>";
+        $str.="&nbsp";
+        if($this->rs->AtFirstPage())
+            $str.="<a href=".$_SERVER['PHP_SELF']."?page=".($this->rs->AbsolutePage()-1)"&parameter1=".$anothersearchstr."&parameter2=".$anothersearchstr." class=".$class.">上一页</a>";
+        else
+            $str.="<font color='#555555'>上一页</font>";
+        $str.="&nbsp";
+        if($this->rs->AtLastPage())
+            $str.="<a href=".$_SERVER['PHP_SELF']."?page=".($this->rs->AbsolutePage()+1)"&parameter1=".$anothersearchstr."&parameter2=".$anothersearchstr." class=".$class.">下一页</a>";
+        else
+            $str.="<font color='#555555'>下一页</font>";
+        $str.="&nbsp"; 
+        if($this->rs->AtLastPage())
+            $str.="<a href=".$_SERVER['PHP_SELF']."?page=".$pagecount)"&parameter1=".$anothersearchstr."&parameter2=".$anothersearchstr." class=".$class.">尾页</a>";
+        else
+            $str.="<font color='#555555'>尾页</font>";
+        if(count($this->array)==0||$this->rs==false)
+            return "";
+        else
+            return $str;
     }
 }
 ?>
